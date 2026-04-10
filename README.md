@@ -1,7 +1,7 @@
 <div align="center">
 
 ![](https://img.shields.io/badge/StellarPH_x_KMC-Claude_AI_Workshop-7B2FBE?style=for-the-badge)
-![](https://img.shields.io/badge/Pod_B-6_Members-F5A623?style=for-the-badge)
+![](https://img.shields.io/badge/Pod_B-4_Members-F5A623?style=for-the-badge)
 
 # Pod B
 
@@ -13,16 +13,14 @@
 
 ## Who Is In My Pod?
 
-| | Name | Role | Computer |
-|---|------|------|----------|
-| 👑  **Luisa Abigail Go** | Pod Leader | Mac |
-|     **Charles Ivan Ogalesco** | Member | Windows |
-|     **Ivhan** | Member | - |
-|     **Mark Anthony C. Gabieta** | Member | Windows |
-|     **Romel P. Rigore** | Member | Windows |
-|     **Arlette Bulnes Martin** | Member | Windows |
+| | Name | Role | Level | Computer |
+|---|------|------|-------|----------|
+| 👑  **Pierce Borinaga** | Pod Leader | Subscription | Mac |
+|     **Rumejan Barbarona** | Member | Experienced | Mac |
+|     **Chris** | Member | Subscription | - |
+|     **Earl Ceniza** | Member | Learning | Windows |
 
-**Luisa Abigail Go** is your pod leader - they keep things moving, call votes when the group is stuck, and make sure everyone has something to do. The leader can hand the role to someone else if they want to.
+**Pierce Borinaga** is your pod leader - they keep things moving, call votes when the group is stuck, and make sure everyone has something to do.
 
 ---
 
