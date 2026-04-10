@@ -731,55 +731,76 @@ function GasAdvisor() {
   const [step, setStep] = useState(0);
   const resultRef = useRef(null);
 
-  useEffect(() => { fetchNews(); }, []);
-
-  const fetchNews = async () => {
-    setNewsLoading(true);
-    try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514", max_tokens: 1000,
-          tools: [{ type: "web_search_20250305", name: "web_search" }],
-          messages: [{ role: "user", content: 'Search for latest gas price news today. Return ONLY a JSON array of 4-5 short headline strings (max 12 words each) about current gas/fuel prices. No markdown, no backticks.' }],
-        }),
-      });
-      const data = await res.json();
-      const text = data.content.map((i) => (i.type === "text" ? i.text : "")).filter(Boolean).join("");
-      setNewsHeadlines(JSON.parse(text.replace(/```json|```/g, "").trim()));
-    } catch (e) {
-      setNewsHeadlines(["Gas prices rising amid Middle East tensions", "National average surpasses $4/gallon", "EIA forecasts peak at $4.30/gal in April"]);
-    }
+  useEffect(() => {
+    // Localized news for demo
+    const demoNews = [
+      "Petron and Shell announce ₱1.50/L hike for Diesel next Tuesday",
+      "DOE monitoring local pumps for price transparency",
+      "Global crude prices stabilize after week of volatility",
+      "Public transport groups seeking fare hike amid fuel costs",
+      "Cleanfuel offering ₱2.00/L discount on selected stations"
+    ];
+    setNewsHeadlines(demoNews);
     setNewsLoading(false);
-  };
+  }, []);
 
   const getVerdict = async () => {
     if (tankLevel === null || dailyDistance === null) return;
-    setLoading(true); setAnalysis(null);
+    setLoading(true);
+    setAnalysis(null);
+
     const tank = FUEL_GAUGE_LEVELS[tankLevel], dist = DISTANCE_LEVELS[dailyDistance];
-    try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514", max_tokens: 1000,
-          tools: [{ type: "web_search_20250305", name: "web_search" }],
-          messages: [{ role: "user", content: `You are a fuel price analyst. Search for the latest gas/fuel price news and forecasts. Then analyze: Tank level: ${tank.label} (${tank.range}), Daily distance: ${dist.label} (${dist.range}). Return ONLY JSON (no markdown): {"verdict":"GAS UP NOW" or "YOU CAN WAIT","confidence":number,"days_remaining":number,"current_trend":"RISING"/"FALLING"/"STABLE","price_now":"$X.XX/gal","price_forecast":"$X.XX/gal","reasons":["3-4 short reasons"],"tip":"one tip"}` }],
-        }),
-      });
-      const data = await res.json();
-      const text = data.content.map((i) => (i.type === "text" ? i.text : "")).filter(Boolean).join("");
-      setAnalysis(JSON.parse(text.replace(/```json|```/g, "").trim()));
-      setTimeout(() => { resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); }, 200);
-    } catch (e) {
+
+    // Local deterministic analyzer logic for demo
+    setTimeout(() => {
+      const isLow = tank.value <= 30;
+      const isHighUsage = dist.value >= 75;
+      const willRise = true; // Simulating a predicted price hike next week
+
+      let verdict, confidence, reasons, tip;
+
+      if (isLow) {
+        verdict = "GAS UP NOW";
+        confidence = 95;
+        reasons = [
+          "Tank level is critical (" + tank.range + ")",
+          "Confirmed price hike of ₱1.50/L coming next Tuesday",
+          "Local supply constraints reported in Cebu North"
+        ];
+        tip = "Don't wait until the weekend — queues will be longer due to the hike news.";
+      } else if (isHighUsage && tank.value < 60) {
+        verdict = "GAS UP NOW";
+        confidence = 85;
+        reasons = [
+          "High daily usage detected (" + dist.range + ")",
+          "Significant savings if you fill before Tuesday's hike",
+          "Price trend remains upward for the next 7 days"
+        ];
+        tip = "Filling up now will save you approximately ₱150–₱200 on your next full tank.";
+      } else {
+        verdict = "YOU CAN WAIT";
+        confidence = 70;
+        reasons = [
+          "You have sufficient fuel for your currently selected range",
+          "Tuesday hike is moderate; you can wait for off-peak hours",
+          "New supply arrivals expected by mid-week may stabilize prices"
+        ];
+        tip = "Check back on Monday afternoon for the final price adjustment updates.";
+      }
+
       setAnalysis({
-        verdict: "GAS UP NOW", confidence: 85, days_remaining: Math.round((tank.value / 100) * 45 * (12 / dist.value)),
-        current_trend: "RISING", price_now: "$4.16/gal", price_forecast: "$4.30/gal",
-        reasons: ["Gas prices risen 12 consecutive weeks", "Strait of Hormuz closure causing historic disruption", "EIA forecasts $4.30/gal peak this month"],
-        tip: "Fill up early in the week — prices often rise toward weekends.",
+        verdict,
+        confidence,
+        days_remaining: Math.max(1, Math.round((tank.value / 100) * 45 * (12 / dist.value))),
+        current_trend: "RISING",
+        price_now: "₱62.40/L",
+        price_forecast: "₱63.90/L",
+        reasons,
+        tip
       });
-      setTimeout(() => { resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); }, 200);
-    }
-    setLoading(false);
+      setTimeout(() => { resultRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }); }, 100);
+      setLoading(false);
+    }, 1200);
   };
 
   const reset = () => { setTankLevel(null); setDailyDistance(null); setAnalysis(null); setStep(0); };
@@ -817,7 +838,7 @@ function GasAdvisor() {
           <span style={{ width: 26, height: 26, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, background: dailyDistance !== null ? "#FF9500" : "rgba(255,255,255,0.08)", color: dailyDistance !== null ? "black" : "rgba(255,255,255,0.5)", transition: "all 0.3s" }}>2</span>
           <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: 1.5 }}>DAILY DRIVE DISTANCE</span>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+        <div style={{ gridDisplay: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, display: "grid" }}>
           {DISTANCE_LEVELS.map((l, i) => (
             <button key={i} className={`opt-btn ${dailyDistance === i ? "sel" : ""}`}
               onClick={() => { setDailyDistance(i); setAnalysis(null); }}>
@@ -832,7 +853,7 @@ function GasAdvisor() {
         {loading ? "⏳ ANALYZING MARKET..." : "⛽ GET MY VERDICT"}
       </button>
 
-      {loading && <div style={{ textAlign: "center", marginTop: 24, animation: "pulse 1.5s infinite" }}><div style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: 2 }}>SCRAPING LIVE FUEL DATA...</div></div>}
+      {loading && <div style={{ textAlign: "center", marginTop: 24, animation: "pulse 1.5s infinite" }}><div style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: 2 }}>PROCESSING LOCAL DATA...</div></div>}
 
       {analysis && (
         <div ref={resultRef} style={{ marginTop: 28, animation: "slideUp 0.5s ease" }}>
@@ -888,10 +909,15 @@ function GasAdvisor() {
 export default function App() {
   const [tab, setTab] = useState("jeepney"); // default to jeepney since user is in Cebu
 
+  // Reset scroll position on tab change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [tab]);
+
   return (
     <div style={{
       minHeight: "100vh", background: "#08090B", color: "white",
-      fontFamily: "'Azeret Mono', monospace", position: "relative", overflow: "hidden"
+      fontFamily: "'Azeret Mono', monospace", position: "relative"
     }}>
       <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
       <style>{`
