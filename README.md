@@ -1,71 +1,16 @@
-<div align="center">
+# React + Vite
 
-![](https://img.shields.io/badge/StellarPH_x_KMC-Claude_AI_Workshop-7B2FBE?style=for-the-badge)
-![](https://img.shields.io/badge/Pod_B-4_Members-F5A623?style=for-the-badge)
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-# Pod B
+Currently, two official plugins are available:
 
-**This is your team's workspace. Everything you build today lives here.**
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-</div>
+## React Compiler
 
----
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Who Is In My Pod?
+## Expanding the ESLint configuration
 
-| | Name | Role | Level | Computer |
-|---|------|------|-------|----------|
-| 👑  **Pierce Borinaga** | Pod Leader | Subscription | Mac |
-|     **Rumejan Barbarona** | Member | Experienced | Mac |
-|     **Chris** | Member | Subscription | - |
-|     **Earl Ceniza** | Member | Learning | Windows |
-
-**Pierce Borinaga** is your pod leader - they keep things moving, call votes when the group is stuck, and make sure everyone has something to do.
-
----
-
-## When Pjotr Says Go - Start Here
-
-[![Pod Kickoff Guide](https://img.shields.io/badge/OPEN_THIS_FIRST-Pod_Kickoff_Guide_%E2%86%92-7B2FBE?style=for-the-badge)](https://github.com/arc-web/stellarph-claude-workshop/blob/main/guides/pod-kickoff.md)
-
-That guide walks you through picking your problem, defining it as a team, dividing the work, and what your repo should look like by the end.
-
----
-
-## What We're Building
-
-> *Fill this in together once you've picked your problem.*
-
-**Problem we're solving:**
-
-**Who it helps:**
-
-**What winning looks like by 6 PM:**
-
----
-
-## How to Add Your Work Here
-
-**Easiest - no terminal needed:**
-1. Click **Add file** at the top of this page
-2. Choose **Create new file** or **Upload files**
-3. Add whatever you built
-4. Click **Commit changes** - that saves it for everyone
-
-**Using Claude Code:**
-First, set up your access token once - it's pinned in the Pod B Discord channel. See CLAUDE.md for the exact command. After that:
-Just say - *"save my work and push it to the repo"*
-
-**Full guide:** [Using Your Repo](https://github.com/arc-web/stellarph-claude-workshop/blob/main/guides/using-your-repo.md)
-
----
-
-## Resources
-
-- **Main workshop hub** - https://github.com/arc-web/stellarph-claude-workshop
-- **Pod Kickoff Guide** - https://github.com/arc-web/stellarph-claude-workshop/blob/main/guides/pod-kickoff.md
-- **All tools for today** - https://github.com/arc-web/stellarph-claude-workshop/blob/main/guides/tools.md
-- **How to use this repo** - https://github.com/arc-web/stellarph-claude-workshop/blob/main/guides/using-your-repo.md
-- **Presentation & NotebookLM guide** - https://github.com/arc-web/stellarph-claude-workshop/blob/main/guides/presentation-guide.md
-- **Discord - Pod B channel** - https://discord.gg/g2pJzjmV
-- **Your build notes** - [notes.md](notes.md)
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
