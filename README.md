@@ -53,6 +53,7 @@ That guide walks you through picking your problem, defining it as a team, dividi
 4. Click **Commit changes** - that saves it for everyone
 
 **Using Claude Code:**
+First, set up your access token once - it's pinned in the Pod B Discord channel. See CLAUDE.md for the exact command. After that:
 Just say - *"save my work and push it to the repo"*
 
 **Full guide:** [Using Your Repo](https://github.com/arc-web/stellarph-claude-workshop/blob/main/guides/using-your-repo.md)
