@@ -1,16 +1,63 @@
-# React + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![](https://img.shields.io/badge/StellarPH_x_KMC-Claude_AI_Workshop-7B2FBE?style=for-the-badge)
+![](https://img.shields.io/badge/Pod_B-4_Members-F5A623?style=for-the-badge)
 
-Currently, two official plugins are available:
+# 🚐 Sakay Na! (Cebu Commuter Toolkit)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**An offline-first, dynamic jeepney route matching engine and AI-simulated gas price advisor for Cebuanos.**
 
-## React Compiler
+</div>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📌 The Problem
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Commuting in Cebu City can be daunting for newbies, students, and tourists. Knowing which jeepney numbers to ride (especially those requiring transfers) usually takes years of local knowledge. Additionally, vehicle owners constantly guess whether to fill up their tank today or wait for price drops. 
+
+**Sakay Na!** solves both problems natively without needing to call expensive or rate-limited external APIs.
+
+---
+
+## ✨ Core Features
+
+### 1. Offline Route Engine 📍
+Say goodbye to unpredictable API wait times. We ingested a massive *Cebu Jeepney Route Cheat Sheet* and built a custom local-matching algorithm.
+*   **Direct Matches**: Identifies single rides from Point A to Point B.
+*   **Smart Transfers**: Detects multi-ride routes by bridging connections through major hubs (e.g., Colon, IT Park, Ayala).
+*   **Landmark Aliases**: Connects colloquial locations (e.g., "Mabolo" = "SM City", "Capitol" = "Escario") directly to the rigid database rules.
+*   **Instant Autocomplete**: Provides user suggestions as they type.
+
+### 2. Gas Price Advisor ⛽
+Simulates a localized financial advisor for vehicle owners to avoid price hikes.
+*   Takes in **Current Tank Level** and **Daily Drive Distance**.
+*   Outputs a deterministic, confident verdict (**"GAS UP NOW"** or **"YOU CAN WAIT"**).
+*   Displays remaining range and trend predictions locally.
+
+---
+
+## 🛠 Tech Stack
+
+*   **Frontend**: React + Vite
+*   **Styling**: Pure CSS + Inline Styles with modern glassmorphic and gradient UI paradigms
+*   **Typography**: *Azeret Mono* (technical data) & *Outfit* (headers)
+*   **Matching Engine**: 100% Vanilla JavaScript algorithm powered by a localized `JEEPNEY_ROUTES` object array.
+
+---
+
+## 🚀 How to Run Locally
+
+If you want to spin this up on your machine:
+
+1. Expand the repository into your local disk.
+2. Ensure you have Node.js installed.
+3. Open a terminal and run the following commands:
+   ```bash
+   npm install
+   npm run dev
+   ```
+4. Access the web application locally via `http://localhost:5173`.
+
+---
+
+*Built with ❤️ by Pod B during the KMC x StellarPH Claude AI Workshop.*
